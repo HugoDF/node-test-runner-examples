@@ -3,10 +3,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test --test-only ./src/migrated/*",
-    "test:all": "npm t && npm run test:seq && npm run test:par",
-    "test:seq": "node --test --test-only --test-concurrency=1 ./src/migrated/*",
-    "test:par": "node --test --test-only --test-concurrency=5 ./src/migrated/*",
+    "test": "node --test ./src/migrated/*.test.js",
+    "dev": "node --test --watch ./src/migrated/*.test.js",
+    "test:all": "npm t && npm run test:only && npm run test:seq && npm run test:par",
+    "test:seq": "node --test --test-only --test-concurrency=1 ./src/migrated/*.test.js",
+    "test:par": "node --test --test-only --test-concurrency=5 ./src/migrated/*.test.js",
+    "test:only": "node --test --test-only src/migrated/*.only.js",
     "test:failing": "node --test src/migrated/*.failing.js && echo 'Error: test run should fail' && exit 1 || echo 'Success: test run failed as expected' && exit 0",
     "format": "prettier -w ."
   },
