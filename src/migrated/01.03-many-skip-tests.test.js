@@ -15,7 +15,8 @@ describe("my suite", () => {
     assert.equal(1 + 1, 1);
   });
   test("t.skip only true test", (t) => {
-    t.skip('skipping inside the test')
+    t.skip('skipping inside the test');
+    return;
     assert.equal(1 + 1, 1);
   });
 });
