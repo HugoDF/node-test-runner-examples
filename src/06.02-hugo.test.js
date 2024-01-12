@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/prevent-abbreviations, camelcase */
 const express = require("express");
 const moxios = require("moxios");
 const request = require("supertest");

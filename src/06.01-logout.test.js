@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/prevent-abbreviations */
 async function logout(request, res) {
 	request.session.data = null;
 	return res.status(200).json();

@@ -1,4 +1,3 @@
-/* eslint-disable default-param-last, prefer-regex-literals */
 const getPingConfigs = jest.fn().mockReturnValue([]);
 const fetch = jest.fn().mockResolvedValue({});
 

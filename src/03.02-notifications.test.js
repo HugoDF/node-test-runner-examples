@@ -7,7 +7,7 @@ const {
 	OPERATIONS,
 	createEmailNotification,
 	createPushNotification,
-} = require("./03.02-notifications");
+} = require("./03.02-notifications.cjs");
 
 test("access tests", () => {
 	expect(OPERATIONS).toEqual({

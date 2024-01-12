@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/prevent-abbreviations */
 const bcrypt = require("bcrypt");
 
 const users = [

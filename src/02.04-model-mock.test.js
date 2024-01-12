@@ -1,5 +1,5 @@
 jest.mock("sequelize");
-const Model = require("./02.04-model");
+import Model from "./02.04-model";
 
 test("It should not throw when passed a model containing an empty list of meetings", () => {
 	const model = new Model();

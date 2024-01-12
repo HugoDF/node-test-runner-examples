@@ -1,4 +1,3 @@
-/* eslint-disable import/no-anonymous-default-export */
 import db from "./03.01-db";
 
 const keyPrefix = "todos";
