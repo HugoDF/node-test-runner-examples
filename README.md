@@ -12,9 +12,14 @@
 
 ## npm scripts
 
-- `npm run test` will run passing test suites
+- `npm run test` will run the core test suite
+- `npm run test:all` will all the test commands
+- `npm run test:seq` will run the core test suite with 1 concurrency
+- `npm run test:par` will run the core test suite with 5 concurrency
+- `npm run test:only` will run the `.only.js` test suite (demonstrating how to use `.only`)
 - `npm run test:failing` will run test suites with failing tests
-- `npm run format` will run `prettier -w` on all the examples files (and tests).
+- `npm run lint` will run `biome lint` on example tests
+- `npm run format` will run `biome format` on examples tests.
 
 ## LICENSE
 
