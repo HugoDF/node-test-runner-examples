@@ -2,21 +2,21 @@ import { describe, test } from "node:test";
 import assert from "node:assert/strict";
 
 describe("my suite", () => {
-  test("one of my tests", () => {
-    assert.equal(1 + 1, 2);
-  });
-  test.skip("skipped failing test", () => {
-    assert.equal(1 + 2, 3);
-  });
-  test.skip("my only true test", () => {
-    assert.equal(1 + 1, 1);
-  });
-  test("{ skip: true } test", {skip: true}, () => {
-    assert.equal(1 + 1, 1);
-  });
-  test("t.skip only true test", (t) => {
-    t.skip('skipping inside the test');
-    return;
-    assert.equal(1 + 1, 1);
-  });
+	test("one of my tests", () => {
+		assert.equal(1 + 1, 2);
+	});
+	test.skip("skipped failing test", () => {
+		assert.equal(1 + 2, 3);
+	});
+	test.skip("my only true test", () => {
+		assert.equal(1 + 1, 1);
+	});
+	test("{ skip: true } test", { skip: true }, () => {
+		assert.equal(1 + 1, 1);
+	});
+	test("t.skip only true test", (t) => {
+		t.skip("skipping inside the test");
+		// @todo is this a Node.js bug? Should uncommenting the following fail or not?
+		// assert.equal(1 + 1, 1);
+	});
 });

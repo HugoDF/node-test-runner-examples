@@ -10,10 +10,11 @@
     "test:par": "node --test --test-only --test-concurrency=5 ./src/migrated/*.test.js",
     "test:only": "node --test --test-only src/migrated/*.only.js",
     "test:failing": "node --test src/migrated/*.failing.js && echo 'Error: test run should fail' && exit 1 || echo 'Success: test run failed as expected' && exit 0",
-    "format": "prettier -w ."
+    "lint": "biome lint --apply ./src/migrated",
+    "format": "biome format --write ."
   },
   "license": "MIT",
   "devDependencies": {
-    "prettier": "^3.1.1"
+    "@biomejs/biome": "1.5.1"
   }
 }
