@@ -5,7 +5,10 @@
   "scripts": {
     "test": "node --test ./src/migrated/*.test.js",
     "dev": "node --test --watch ./src/migrated/*.test.js",
-    "test:all": "npm t && npm run test:only && npm run test:seq && npm run test:par",
+    "test:all": "npm run test:coverage && npm run test:only && npm run test:seq && npm run test:par",
+    "test:coverage": "node --test --experimental-test-coverage ./src/migrated/*.test.js",
+    "test:coverage:file": "node --test --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=lcov.info ./src/migrated/*.test.js",
+    "report:html": "npx @lcov-viewer/cli lcov -o ./coverage ./lcov.info",
     "test:seq": "node --test --test-concurrency=1 ./src/migrated/*.test.js",
     "test:par": "node --test --test-concurrency=5 ./src/migrated/*.test.js",
     "test:only": "node --test --test-only src/migrated/*.only.js",
