@@ -1,11 +1,11 @@
 async function asyncThrowOrNot() {
-  throw new Error("async-throw");
+	throw new Error("async-throw");
 }
 
 test("should throw return expect()", async () => {
-  return expect(asyncThrowOrNot()).rejects.toEqual(new Error("async-throw"));
+	return expect(asyncThrowOrNot()).rejects.toEqual(new Error("async-throw"));
 });
 
 test("should throw await expect()", async () => {
-  await expect(asyncThrowOrNot()).rejects.toEqual(new Error("async-throw"));
+	await expect(asyncThrowOrNot()).rejects.toEqual(new Error("async-throw"));
 });

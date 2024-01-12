@@ -1,5 +1,5 @@
-import { test, mock } from 'node:test';
-import assert from 'node:assert/strict';
+import { test, mock } from "node:test";
+import assert from "node:assert/strict";
 
 let state = 0;
 const counter = {
@@ -26,5 +26,5 @@ test("singleAdd > mock.fn() calls[].arguments single call", () => {
 test("singleAdd > mock.method() calls[].arguments single call", () => {
 	const addSpy = mock.method(counter, "add");
 	singleAdd(counter);
-  assert.deepEqual(addSpy.mock.calls[0].arguments, [10])
+	assert.deepEqual(addSpy.mock.calls[0].arguments, [10]);
 });

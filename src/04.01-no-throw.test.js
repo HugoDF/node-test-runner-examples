@@ -1,7 +1,7 @@
 function throws() {
-  return "success";
+	return "success";
 }
 
 test("should not throw", () => {
-  expect(throws.bind(null)).not.toThrow(new Error("throwing"));
+	expect(throws.bind(null)).not.toThrow(new Error("throwing"));
 });
