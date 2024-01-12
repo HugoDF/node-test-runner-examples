@@ -1,4 +1,4 @@
-const db = require("./03.01-db");
+import db from "./03.01-db.js";
 
 const keyPrefix = "todos";
 const makeKey = (key) => `${keyPrefix}:${key}`;

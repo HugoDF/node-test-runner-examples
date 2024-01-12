@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/prevent-abbreviations */
 const express = require("express");
 const request = require("supertest");
 

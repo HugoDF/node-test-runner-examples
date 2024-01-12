@@ -1,5 +1,4 @@
-/* eslint-disable prettier/prettier */
-const { Model } = require("sequelize");
+import { Model } from "sequelize";
 
 class MyModel extends Model {
 	static init() {
@@ -20,4 +19,4 @@ class MyModel extends Model {
 	}
 }
 
-module.exports = MyModel;
+export default MyModel;

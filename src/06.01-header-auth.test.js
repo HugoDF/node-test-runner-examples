@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/prevent-abbreviations */
 const apiKeyToUser = {
 	"76b1e728-1c14-43f9-aa06-6de5cbc064c2": "hugo",
 };

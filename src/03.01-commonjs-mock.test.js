@@ -3,8 +3,8 @@ jest.mock("./03.01-db", () => ({
 	set: jest.fn(),
 }));
 
-const mockDb = require("./03.01-db");
-const { addTodo, getTodo } = require("./03.01-lib.cjs");
+import mockDb from "./03.01-db.js";
+import { addTodo, getTodo } from "./03.01-lib.cjs";
 
 test("CommonJS > addTodo > inserts with new id", async () => {
 	await addTodo({ name: "new todo" });

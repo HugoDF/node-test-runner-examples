@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/prevent-abbreviations */
 async function checkAuth(request, res) {
 	if (!request.session.data) {
 		return res.status(401).json();
