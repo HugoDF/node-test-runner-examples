@@ -1,3 +1,6 @@
+import { test } from "node:test";
+import assert from "node:assert/strict";
+
 const user = {
 	id: 1,
 	friends: [],
@@ -5,6 +8,6 @@ const user = {
 	url: "https://codewithhugo.com",
 };
 test("should have right id and name", () => {
-	expect(user.id).toEqual(1);
-	expect(user.name).toEqual("Hugo");
+	assert.equal(user.id, 1);
+	assert.equal(user.name, "Hugo");
 });
