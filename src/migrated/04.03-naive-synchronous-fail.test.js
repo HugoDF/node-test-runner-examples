@@ -1,3 +1,6 @@
+import { test } from "node:test";
+import assert from "node:assert/strict";
+
 function throwOrNot(shouldThrow = false) {
 	if (shouldThrow) {
 		throw new Error("shouldThrow was true");
@@ -10,6 +13,6 @@ test("should throw if passed true", () => {
 	try {
 		throwOrNot(true);
 	} catch (error) {
-		expect(error).toEqual(new Error("shouldThrow was true"));
+		assert.deepEqual(error, new Error("shouldThrow was true"));
 	}
 });
