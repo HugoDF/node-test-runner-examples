@@ -1,9 +1,14 @@
-const express = require("express");
-const moxios = require("moxios");
-const request = require("supertest");
-const axios = require("axios");
+import { test, describe, beforeEach, afterEach } from "node:test";
+import assert from "node:assert/strict";
 
-const hugo = (router = new express.Router()) => {
+import express, { Router } from "express";
+// note that moxios doesn't work with axios version >1
+import moxios from "moxios";
+import request from "supertest";
+import axios from "axios";
+
+// @ts-ignore
+const hugo = (router = new Router()) => {
 	router.get("/hugo", async (request_, res) => {
 		const { data: userData } = await axios.get(
 			"https://api.github.com/users/HugoDF",
@@ -44,7 +49,8 @@ describe("GET /hugo", () => {
 		});
 		const app = initHugo();
 		await request(app).get("/hugo");
-		expect(moxios.requests.mostRecent().url).toBe(
+		assert.equal(
+			moxios.requests.mostRecent().url,
 			"https://api.github.com/users/HugoDF",
 		);
 	});
@@ -60,7 +66,7 @@ describe("GET /hugo", () => {
 		});
 		const app = initHugo();
 		const res = await request(app).get("/hugo");
-		expect(res.body).toEqual({
+		assert.deepEqual(res.body, {
 			blog: "https://codewithhugo.com",
 			location: "London",
 			bio: "Developer, JavaScript",
