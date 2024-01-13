@@ -9,11 +9,11 @@ const mockObjectId = (data) => {
 };
 
 test("toString() returns right value", () => {
-  assert.equal(mockObjectId("foo").toString(), "foo");
+	assert.equal(mockObjectId("foo").toString(), "foo");
 });
 test("it’s an object", () => {
 	const actual = mockObjectId("foo");
-  assert.equal(typeof actual, "object");
+	assert.equal(typeof actual, "object");
 });
 test("two objectIds with same value are equal", () => {
 	const first = mockObjectId("foo");

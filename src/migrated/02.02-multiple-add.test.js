@@ -16,7 +16,7 @@ const multipleAdd = (counter) => {
 	counter.add(20);
 };
 
-test("multipleAdd > jest.fn() toHaveBeenCalledWith() multiple calls", () => {
+test("multipleAdd > mock.fn() call arguments multiple calls", () => {
 	const mockCounter = {
 		add: mock.fn(),
 	};
@@ -24,7 +24,7 @@ test("multipleAdd > jest.fn() toHaveBeenCalledWith() multiple calls", () => {
 	assert.deepEqual(mockCounter.add.mock.calls[0].arguments, [15]);
 	assert.deepEqual(mockCounter.add.mock.calls[1].arguments, [20]);
 });
-test("multipleAdd > jest.fn() toHaveBeenCalledWith() multiple calls", () => {
+test("multipleAdd > mock.method() call arguments multiple calls", () => {
 	const addSpy = mock.method(counter, "add");
 	multipleAdd(counter);
 	assert.deepEqual(addSpy.mock.calls[0].arguments, [15]);
