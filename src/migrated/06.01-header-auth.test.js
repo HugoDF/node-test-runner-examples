@@ -1,3 +1,6 @@
+import { test, mock } from "node:test";
+import assert from "node:assert/strict";
+
 const apiKeyToUser = {
 	"76b1e728-1c14-43f9-aa06-6de5cbc064c2": "hugo",
 };
@@ -34,8 +37,10 @@ const mockRequest = (authHeader, sessionData) => ({
 
 const mockResponse = () => {
 	const res = {};
-	res.status = jest.fn().mockReturnValue(res);
-	res.json = jest.fn().mockReturnValue(res);
+	res.status = mock.fn();
+	res.status.mock.mockImplementation(() => res);
+	res.json = mock.fn();
+	res.status.mock.mockImplementation(() => res);
 	return res;
 };
 
@@ -43,7 +48,7 @@ test("should set req.session.data if API key is in authorization and is valid", 
 	const req = mockRequest("76b1e728-1c14-43f9-aa06-6de5cbc064c2");
 	const res = mockResponse();
 	await headerAuth(req, res, () => {});
-	expect(req.session.data).toEqual({ username: "hugo" });
+	assert.deepEqual(req.session.data, { username: "hugo" });
 });
 test("should not do anything if req.session.data is already set", async () => {
 	const req = mockRequest("76b1e728-1c14-43f9-aa06-6de5cbc064c2", {
@@ -51,17 +56,17 @@ test("should not do anything if req.session.data is already set", async () => {
 	});
 	const res = mockResponse();
 	await headerAuth(req, res, () => {});
-	expect(req.session.data).toEqual({ username: "guest" });
+	assert.deepEqual(req.session.data, { username: "guest" });
 });
 test("should not do anything if authorization header is not present", async () => {
 	const req = mockRequest(undefined);
 	const res = mockResponse();
 	await headerAuth(req, res, () => {});
-	expect(req.session.data).toBeUndefined();
+	assert.equal(req.session.data, undefined);
 });
 test("should not do anything if api key is invalid", async () => {
 	const req = mockRequest("invalid-api-key");
 	const res = mockResponse();
 	await headerAuth(req, res, () => {});
-	expect(req.session.data).toBeUndefined();
+	assert.equal(req.session.data, undefined);
 });
