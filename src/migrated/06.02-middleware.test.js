@@ -1,5 +1,7 @@
-const express = require("express");
-const request = require("supertest");
+import { test } from "node:test";
+import assert from "node:assert/strict";
+import express from "express";
+import request from "supertest";
 
 function encodeReferer(req, res, next) {
 	if (req.headers.referer) {
@@ -21,11 +23,11 @@ const initMiddleware = () => {
 test("encodeReferer should base64 referer if set", async () => {
 	const app = initMiddleware();
 	const res = await request(app).get("/").set("Referer", "codewithhugo.com");
-	expect(res.text).toEqual("Y29kZXdpdGhodWdvLmNvbQ==");
+	assert.equal(res.text, "Y29kZXdpdGhodWdvLmNvbQ==");
 });
 
 test("encodeReferer should work fine if referer is not set", async () => {
 	const app = initMiddleware();
 	const res = await request(app).get("/");
-	expect(res.text).toEqual("");
+	assert.equal(res.text, "");
 });
