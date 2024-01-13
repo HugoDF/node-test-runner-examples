@@ -1,3 +1,6 @@
+import { test, mock } from "node:test";
+import assert from "node:assert/strict";
+
 async function logout(request, res) {
 	request.session.data = null;
 	return res.status(200).json();
@@ -11,8 +14,10 @@ const mockRequest = (sessionData) => {
 
 const mockResponse = () => {
 	const res = {};
-	res.status = jest.fn().mockReturnValue(res);
-	res.json = jest.fn().mockReturnValue(res);
+	res.status = mock.fn();
+	res.status.mock.mockImplementation(() => res);
+	res.json = mock.fn();
+	res.status.mock.mockImplementation(() => res);
 	return res;
 };
 
@@ -20,11 +25,11 @@ test("should set session.data to null", async () => {
 	const request = mockRequest({ username: "hugo" });
 	const res = mockResponse();
 	await logout(request, res);
-	expect(request.session.data).toBeNull();
+	assert.equal(request.session.data, null);
 });
 test("should 200", async () => {
 	const request = mockRequest({ username: "hugo" });
 	const res = mockResponse();
 	await logout(request, res);
-	expect(res.status).toHaveBeenCalledWith(200);
+	assert.deepEqual(res.status.mock.calls[0].arguments, [200]);
 });

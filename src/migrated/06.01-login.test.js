@@ -1,4 +1,7 @@
-const bcrypt = require("bcrypt");
+import { test, mock } from "node:test";
+import assert from "node:assert/strict";
+
+import bcrypt from "bcrypt";
 
 const users = [
 	{
@@ -52,8 +55,10 @@ const mockRequest = (sessionData, body) => ({
 
 const mockResponse = () => {
 	const res = {};
-	res.status = jest.fn().mockReturnValue(res);
-	res.json = jest.fn().mockReturnValue(res);
+	res.status = mock.fn();
+	res.status.mock.mockImplementation(() => res);
+	res.json = mock.fn();
+	res.status.mock.mockImplementation(() => res);
 	return res;
 };
 
@@ -61,19 +66,23 @@ test("should 400 if username is missing from body", async () => {
 	const req = mockRequest({}, { password: "boss" });
 	const res = mockResponse();
 	await login(req, res);
-	expect(res.status).toHaveBeenCalledWith(400);
-	expect(res.json).toHaveBeenCalledWith({
-		message: "username and password are required",
-	});
+	assert.deepEqual(res.status.mock.calls[0].arguments, [400]);
+	assert.deepEqual(res.json.mock.calls[0].arguments, [
+		{
+			message: "username and password are required",
+		},
+	]);
 });
 test("should 400 if password is missing from body", async () => {
 	const req = mockRequest({}, { username: "hugo" });
 	const res = mockResponse();
 	await login(req, res);
-	expect(res.status).toHaveBeenCalledWith(400);
-	expect(res.json).toHaveBeenCalledWith({
-		message: "username and password are required",
-	});
+	assert.deepEqual(res.status.mock.calls[0].arguments, [400]);
+	assert.deepEqual(res.json.mock.calls[0].arguments, [
+		{
+			message: "username and password are required",
+		},
+	]);
 });
 test("should 401 with message if user with passed username does not exist", async () => {
 	const req = mockRequest(
@@ -85,10 +94,12 @@ test("should 401 with message if user with passed username does not exist", asyn
 	);
 	const res = mockResponse();
 	await login(req, res);
-	expect(res.status).toHaveBeenCalledWith(401);
-	expect(res.json).toHaveBeenCalledWith({
-		message: "No user with matching username",
-	});
+	assert.deepEqual(res.status.mock.calls[0].arguments, [401]);
+	assert.deepEqual(res.json.mock.calls[0].arguments, [
+		{
+			message: "No user with matching username",
+		},
+	]);
 });
 test("should 401 with message if passed password does not match stored password", async () => {
 	const req = mockRequest(
@@ -100,10 +111,12 @@ test("should 401 with message if passed password does not match stored password"
 	);
 	const res = mockResponse();
 	await login(req, res);
-	expect(res.status).toHaveBeenCalledWith(401);
-	expect(res.json).toHaveBeenCalledWith({
-		message: "Wrong password",
-	});
+	assert.deepEqual(res.status.mock.calls[0].arguments, [401]);
+	assert.deepEqual(res.json.mock.calls[0].arguments, [
+		{
+			message: "Wrong password",
+		},
+	]);
 });
 test("should 201 and set session.data with username if user exists and right password provided", async () => {
 	const req = mockRequest(
@@ -115,9 +128,9 @@ test("should 201 and set session.data with username if user exists and right pas
 	);
 	const res = mockResponse();
 	await login(req, res);
-	expect(res.status).toHaveBeenCalledWith(201);
-	expect(res.json).toHaveBeenCalled();
-	expect(req.session.data).toEqual({
+	assert.deepEqual(res.status.mock.calls[0].arguments, [201]);
+	assert.deepEqual(res.json.mock.calls[0].arguments, []);
+	assert.deepEqual(req.session.data, {
 		username: "guest",
 	});
 });
