@@ -4,7 +4,7 @@ class MyModel extends Model {
 	static init() {
 		return (
 			// Config
-			super.init()
+			Model.init()
 		);
 	}
 
