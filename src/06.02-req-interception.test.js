@@ -8,7 +8,7 @@ import express, { Router } from "express";
 import axios from "axios";
 
 const hugo = (router = new Router()) => {
-	router.get("/hugo", async (request_, res) => {
+	router.get("/hugo", async (_request, res) => {
 		const { data: userData } = await axios.get(
 			"https://api.github.com/users/HugoDF",
 		);

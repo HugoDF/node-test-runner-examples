@@ -29,6 +29,7 @@
   "devDependencies": {
     "@biomejs/biome": "1.5.1",
     "esmock": "2.6.2",
-    "nock": "^13.4.0"
+    "nock": "^13.4.0",
+    "undici": "^6.3.0"
   }
 }
