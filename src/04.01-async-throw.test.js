@@ -14,6 +14,8 @@ test("should reject/throw return assert.rejects", () => {
 });
 
 test("assert on error", async () => {
+	await assert.rejects(asyncThrowOrNot, new Error("async-throw"));
+
 	await assert.rejects(asyncThrowOrNot, (err) => {
 		assert.deepEqual(err, new Error("async-throw"));
 		return true;
