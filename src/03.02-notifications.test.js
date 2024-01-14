@@ -49,7 +49,7 @@ test("access tests", async () => {
 		},
 	);
 
-	sendNotification()
+	sendNotification();
 
 	assert.equal(sendNotification.mock.callCount(), 1);
 });

@@ -1,13 +1,12 @@
-import { test, describe, beforeEach, afterEach } from "node:test";
+// @ts-nocheck
+import { test, describe, before } from "node:test";
 import assert from "node:assert/strict";
+import request from "supertest";
+import nock from "nock";
 
 import express, { Router } from "express";
-// note that moxios doesn't work with axios version >1
-import moxios from "moxios";
-import request from "supertest";
 import axios from "axios";
 
-// @ts-ignore
 const hugo = (router = new Router()) => {
 	router.get("/hugo", async (request_, res) => {
 		const { data: userData } = await axios.get(
@@ -31,41 +30,38 @@ const initHugo = () => {
 };
 
 describe("GET /hugo", () => {
-	beforeEach(() => {
-		moxios.install();
+	before(() => {
+		nock.disableNetConnect();
+		nock.enableNetConnect("127.0.0.1");
 	});
-	afterEach(() => {
-		moxios.uninstall();
-	});
+
 	test("It should fetch HugoDF from GitHub", async () => {
-		moxios.stubRequest(/api.github.com\/users/, {
-			status: 200,
-			response: {
-				blog: "https://codewithhugo.com",
-				location: "London",
-				bio: "Developer, JavaScript",
-				public_repos: 39,
-			},
+		const ghMocks = nock("https://api.github.com");
+		ghMocks.get("/users/HugoDF").reply(200, {
+			blog: "https://codewithhugo.com",
+			location: "London",
+			bio: "Developer, JavaScript",
+			public_repos: 39,
 		});
+
 		const app = initHugo();
 		await request(app).get("/hugo");
-		assert.equal(
-			moxios.requests.mostRecent().url,
-			"https://api.github.com/users/HugoDF",
-		);
+		assert.equal(ghMocks.isDone(), true);
+		assert.deepEqual(ghMocks.pendingMocks(), []);
+		assert.deepEqual(ghMocks.activeMocks(), []);
 	});
 	test("It should 200 and return a transformed version of GitHub response", async () => {
-		moxios.stubRequest(/api.github.com\/users/, {
-			status: 200,
-			response: {
-				blog: "https://codewithhugo.com",
-				location: "London",
-				bio: "Developer, JavaScript",
-				public_repos: 39,
-			},
+		const ghMocks = nock("https://api.github.com");
+		ghMocks.get("/users/HugoDF").reply(200, {
+			blog: "https://codewithhugo.com",
+			location: "London",
+			bio: "Developer, JavaScript",
+			public_repos: 39,
 		});
+
 		const app = initHugo();
 		const res = await request(app).get("/hugo");
+
 		assert.deepEqual(res.body, {
 			blog: "https://codewithhugo.com",
 			location: "London",
