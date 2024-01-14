@@ -1,3 +1,6 @@
+import { test, mock } from "node:test";
+import assert from "node:assert/strict";
+
 const appWork = (createUser) => {
 	return async (request, response) => {
 		const { name } = request.body;
@@ -13,13 +16,12 @@ test("should call createUser with right types", async () => {
 		},
 	};
 	const response = {
-		status: jest.fn(() => response),
-		json: jest.fn(() => response),
+		status: mock.fn(() => response),
+		json: mock.fn(() => response),
 	};
-	const mockCreateUser = jest.fn();
+	const mockCreateUser = mock.fn();
 	await appWork(mockCreateUser)(request, response);
-	expect(mockCreateUser).toHaveBeenCalledWith(
-		expect.any(String),
-		expect.any(Date),
-	);
+	const args = mockCreateUser.mock.calls[0].arguments;
+	assert.equal(typeof args[0], "string");
+	assert(args[1] instanceof Date);
 });
