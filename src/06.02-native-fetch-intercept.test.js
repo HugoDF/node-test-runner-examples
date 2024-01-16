@@ -1,6 +1,6 @@
 import { test, before, after } from "node:test";
 import assert from "node:assert/strict";
-import { MockAgent, setGlobalDispatcher } from "undici";
+import { Agent, MockAgent, setGlobalDispatcher } from "undici";
 
 const mockAgent = new MockAgent();
 before(() => {
@@ -9,6 +9,7 @@ before(() => {
 });
 after(async () => {
 	await mockAgent.close();
+	setGlobalDispatcher(new Agent());
 });
 test("native fetch interception via undici", async () => {
 	mockAgent
