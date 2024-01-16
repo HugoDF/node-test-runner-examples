@@ -44,13 +44,15 @@ describe("GET /hugo", () => {
 	});
 
 	test("It should fetch HugoDF from GitHub", async () => {
-		const ghMocks = mockAgent.get("https://api.github.com");
-		ghMocks.intercept({ path: "/users/HugoDF" }).reply(200, {
-			blog: "https://codewithhugo.com",
-			location: "London",
-			bio: "Developer, JavaScript",
-			public_repos: 39,
-		});
+		mockAgent
+			.get("https://api.github.com")
+			.intercept({ path: "/users/HugoDF" })
+			.reply(200, {
+				blog: "https://codewithhugo.com",
+				location: "London",
+				bio: "Developer, JavaScript",
+				public_repos: 39,
+			});
 
 		const app = initHugo();
 		await request(app).get("/hugo");
