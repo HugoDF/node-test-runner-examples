@@ -25,9 +25,9 @@
     "supertest": "7.0.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.5.3",
-    "esmock": "2.6.3",
-    "nock": "13.5.1",
-    "undici": "6.5.0"
+    "@biomejs/biome": "1.8.2",
+    "esmock": "2.6.6",
+    "nock": "13.5.4",
+    "undici": "6.19.2"
   }
 }
