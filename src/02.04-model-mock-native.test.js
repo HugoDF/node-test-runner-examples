@@ -1,18 +1,16 @@
 import { describe, test, mock, before, after } from "node:test";
 import assert from "node:assert/strict";
 
-/**
- * mock.module() was added in 22.3.0
- */
-const isNode22Point3OrLower = (() => {
+// mock.module() was added in 22.3.0
+const supportsMockModule = (() => {
 	const [major, minor, _patch] = process.versions.node.split(".");
-	return !(parseInt(major, 10) >= 22 && parseInt(minor, 10) >= 3);
+	return parseInt(major, 10) >= 22 && parseInt(minor, 10) >= 3;
 })();
 
 let Model;
 /** @type {ReturnType<typeof mock['module']>}*/
 let modelMock;
-describe("Class extends Mock - native", { skip: isNode22Point3OrLower }, () => {
+describe("Class extends Mock - native", { skip: !supportsMockModule }, () => {
 	before(async () => {
 		modelMock = mock.module("sequelize", {
 			namedExports: {
